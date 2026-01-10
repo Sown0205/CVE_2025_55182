@@ -151,7 +151,7 @@ npm run dev
 
 Upon loading the server, we will see a very simple page like this
 
-![Next.js default app](screenshots\next.js-app.png)
+![Next.js default app](screenshots/next.js-app.png)
 
 This means that the Next.js app is working
 
