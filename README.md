@@ -162,7 +162,7 @@ python poc.py http://localhost:3000 (target server) "whoami"
 ```
 This will return the server `whoami` information
 
-![poc.png](screenshots\poc.png)
+![poc.png](screenshots/poc.png)
 
 Other executable, non-destructive commands that you can try:
 
@@ -172,11 +172,11 @@ Open the caculator program on target server (classic PoC demo)
 ```python
 python poc.py http://localhost:3000 calc
 ```
-![poc2.png](screenshots\poc2.png)
+![poc2.png](screenshots/poc2.png)
 
 Display full system info of the target server (assume that server is running on Windows)
 
-![poc3.png](screenshots\poc3.png)
+![poc3.png](screenshots/poc3.png)
 
 Commands that you SHOULD not try
 
@@ -189,6 +189,9 @@ Commands that you SHOULD not try
 - package manager/installer
 
 Any destructive commands is not allowed
+
+### Quick demostration
+![Quick demo hehe](screenshots/poc_demo-ezgif.com-optimize.gif)
 
 ## Impact and risk
 
