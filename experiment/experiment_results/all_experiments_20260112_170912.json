@@ -1,0 +1,114 @@
+{
+  "metadata": {
+    "target_url": "http://localhost:3000",
+    "timestamp": "20260112_170912",
+    "start_time": "2026-01-12T17:09:12.972943",
+    "end_time": "2026-01-12T17:12:15.799151"
+  },
+  "experiments": [
+    {
+      "experiment": "basic_functionality",
+      "description": "Verify that the exploit successfully executes on vulnerable server",
+      "result": {
+        "success": true,
+        "duration_seconds": 3.851412296295166,
+        "stdout": "============================================================\n CVE-2025-55182 (React2Shell) Enhanced PoC\n============================================================\n[+] Status: 500\n[+] Response time: 2918.85ms\n[+] Payload size: 422 bytes\n[+] Success: True\n[+] Response:\n:N1768212556757.7441\n0:{\"a\":\"$@1\",\"f\":\"\",\"b\":\"development\"}\n1:D{\"time\":3.375500000001921}\n1:E{\"digest\":\"spryzen-vbox-v1\\\\spryzen\",\"name\":\"Error\",\"message\":\"NEXT_REDIRECT\",\"stack\":[],\"env\":\"Server\",\"owner\":null}\n\n",
+        "stderr": "",
+        "return_code": 0
+      }
+    },
+    {
+      "experiment": "performance_low_rate",
+      "description": "Test server performance under low-rate exploit attempts (1 req/sec)",
+      "result": {
+        "success": true,
+        "duration_seconds": 53.77183413505554,
+        "stdout": "============================================================\n CVE-2025-55182 (React2Shell) Enhanced PoC\n============================================================\n\n[*] Executing 50 exploit attempts...\n[*] Target: http://localhost:3000\n[*] Command: whoami\n[*] Progress: 10/50\n[*] Progress: 20/50\n[*] Progress: 30/50\n[*] Progress: 40/50\n[*] Progress: 50/50\n\n============================================================\n PERFORMANCE ANALYSIS RESULTS\n============================================================\n\n[*] Total Requests: 50\n[+] Successful Exploits: 50\n[-] Failed Attempts: 0\n[*] Success Rate: 100.00%\n\n[*] Payload Size: 422 bytes\n\n[*] Response Time Statistics:\n    - Minimum: 58.12ms\n    - Maximum: 112.11ms\n    - Mean: 74.69ms\n    - Median: 71.46ms\n    - Std Dev: 11.06ms\n\n============================================================\n[+] Metrics exported to: E:\\CVE_2025_55182\\experiment\\exploit_metrics.json\n",
+        "stderr": "",
+        "return_code": 0,
+        "metrics_file": "E:\\CVE_2025_55182\\experiment\\experiment_results/metrics_low_rate_20260112_170912.json"
+      }
+    },
+    {
+      "experiment": "performance_medium_rate",
+      "description": "Test server performance under medium-rate exploit attempts (5 req/sec)",
+      "result": {
+        "success": true,
+        "duration_seconds": 28.425445556640625,
+        "stdout": "============================================================\n CVE-2025-55182 (React2Shell) Enhanced PoC\n============================================================\n\n[*] Executing 100 exploit attempts...\n[*] Target: http://localhost:3000\n[*] Command: whoami\n[*] Progress: 10/100\n[*] Progress: 20/100\n[*] Progress: 30/100\n[*] Progress: 40/100\n[*] Progress: 50/100\n[*] Progress: 60/100\n[*] Progress: 70/100\n[*] Progress: 80/100\n[*] Progress: 90/100\n[*] Progress: 100/100\n\n============================================================\n PERFORMANCE ANALYSIS RESULTS\n============================================================\n\n[*] Total Requests: 100\n[+] Successful Exploits: 100\n[-] Failed Attempts: 0\n[*] Success Rate: 100.00%\n\n[*] Payload Size: 422 bytes\n\n[*] Response Time Statistics:\n    - Minimum: 57.79ms\n    - Maximum: 113.01ms\n    - Mean: 71.72ms\n    - Median: 70.88ms\n    - Std Dev: 8.53ms\n\n============================================================\n[+] Metrics exported to: E:\\CVE_2025_55182\\experiment\\exploit_metrics.json\n",
+        "stderr": "",
+        "return_code": 0,
+        "metrics_file": "E:\\CVE_2025_55182\\experiment\\experiment_results/metrics_medium_rate_20260112_170912.json"
+      }
+    },
+    {
+      "experiment": "performance_high_rate_dos",
+      "description": "Test server DoS potential under high-rate exploit attempts (20 req/sec)",
+      "result": {
+        "success": true,
+        "duration_seconds": 27.206801891326904,
+        "stdout": "============================================================\n CVE-2025-55182 (React2Shell) Enhanced PoC\n============================================================\n\n[*] Executing 200 exploit attempts...\n[*] Target: http://localhost:3000\n[*] Command: whoami\n[*] Progress: 10/200\n[*] Progress: 20/200\n[*] Progress: 30/200\n[*] Progress: 40/200\n[*] Progress: 50/200\n[*] Progress: 60/200\n[*] Progress: 70/200\n[*] Progress: 80/200\n[*] Progress: 90/200\n[*] Progress: 100/200\n[*] Progress: 110/200\n[*] Progress: 120/200\n[*] Progress: 130/200\n[*] Progress: 140/200\n[*] Progress: 150/200\n[*] Progress: 160/200\n[*] Progress: 170/200\n[*] Progress: 180/200\n[*] Progress: 190/200\n[*] Progress: 200/200\n\n============================================================\n PERFORMANCE ANALYSIS RESULTS\n============================================================\n\n[*] Total Requests: 200\n[+] Successful Exploits: 200\n[-] Failed Attempts: 0\n[*] Success Rate: 100.00%\n\n[*] Payload Size: 422 bytes\n\n[*] Response Time Statistics:\n    - Minimum: 55.54ms\n    - Maximum: 101.59ms\n    - Mean: 76.40ms\n    - Median: 74.87ms\n    - Std Dev: 9.91ms\n\n============================================================\n[+] Metrics exported to: E:\\CVE_2025_55182\\experiment\\exploit_metrics.json\n",
+        "stderr": "",
+        "return_code": 0,
+        "metrics_file": "E:\\CVE_2025_55182\\experiment\\experiment_results/metrics_high_rate_20260112_170912.json"
+      }
+    },
+    {
+      "experiment": "waf_bypass_testing",
+      "description": "Evaluate effectiveness of WAF detection against various obfuscation techniques",
+      "result": {
+        "success": false,
+        "duration_seconds": 0.07723355293273926,
+        "stdout": "",
+        "stderr": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python312\\python.exe: can't open file 'E:\\\\CVE_2025_55182\\\\experiment\\\\poc_waf_bypass.py': [Errno 2] No such file or directory\n",
+        "return_code": 2
+      }
+    },
+    {
+      "experiment": "payload_comparison",
+      "description": "Compare different command payloads and their performance characteristics",
+      "results": [
+        {
+          "command": "id",
+          "result": {
+            "success": true,
+            "duration_seconds": 1.5268874168395996,
+            "stdout": "============================================================\n CVE-2025-55182 (React2Shell) Enhanced PoC\n============================================================\n\n[*] Executing 10 exploit attempts...\n[*] Target: http://localhost:3000\n[*] Command: id\n[*] Progress: 10/10\n\n============================================================\n PERFORMANCE ANALYSIS RESULTS\n============================================================\n\n[*] Total Requests: 10\n[+] Successful Exploits: 0\n[-] Failed Attempts: 10\n[*] Success Rate: 0.00%\n\n[*] Payload Size: 418 bytes\n\n[*] Response Time Statistics:\n    - Minimum: 42.18ms\n    - Maximum: 73.55ms\n    - Mean: 58.87ms\n    - Median: 57.23ms\n    - Std Dev: 11.38ms\n\n[*] Error Types:\n    - Unknown: 10\n\n============================================================\n[+] Metrics exported to: E:\\CVE_2025_55182\\experiment\\exploit_metrics.json\n",
+            "stderr": "",
+            "return_code": 0
+          }
+        },
+        {
+          "command": "whoami",
+          "result": {
+            "success": true,
+            "duration_seconds": 1.6849281787872314,
+            "stdout": "============================================================\n CVE-2025-55182 (React2Shell) Enhanced PoC\n============================================================\n\n[*] Executing 10 exploit attempts...\n[*] Target: http://localhost:3000\n[*] Command: whoami\n[*] Progress: 10/10\n\n============================================================\n PERFORMANCE ANALYSIS RESULTS\n============================================================\n\n[*] Total Requests: 10\n[+] Successful Exploits: 10\n[-] Failed Attempts: 0\n[*] Success Rate: 100.00%\n\n[*] Payload Size: 422 bytes\n\n[*] Response Time Statistics:\n    - Minimum: 57.24ms\n    - Maximum: 99.88ms\n    - Mean: 85.34ms\n    - Median: 88.73ms\n    - Std Dev: 14.37ms\n\n============================================================\n[+] Metrics exported to: E:\\CVE_2025_55182\\experiment\\exploit_metrics.json\n",
+            "stderr": "",
+            "return_code": 0
+          }
+        },
+        {
+          "command": "echo test",
+          "result": {
+            "success": true,
+            "duration_seconds": 1.2305376529693604,
+            "stdout": "============================================================\n CVE-2025-55182 (React2Shell) Enhanced PoC\n============================================================\n\n[*] Executing 10 exploit attempts...\n[*] Target: http://localhost:3000\n[*] Command: echo test\n[*] Progress: 10/10\n\n============================================================\n PERFORMANCE ANALYSIS RESULTS\n============================================================\n\n[*] Total Requests: 10\n[+] Successful Exploits: 10\n[-] Failed Attempts: 0\n[*] Success Rate: 100.00%\n\n[*] Payload Size: 425 bytes\n\n[*] Response Time Statistics:\n    - Minimum: 26.14ms\n    - Maximum: 66.86ms\n    - Mean: 43.25ms\n    - Median: 42.35ms\n    - Std Dev: 13.35ms\n\n============================================================\n[+] Metrics exported to: E:\\CVE_2025_55182\\experiment\\exploit_metrics.json\n",
+            "stderr": "",
+            "return_code": 0
+          }
+        },
+        {
+          "command": "systeminfo",
+          "result": {
+            "success": true,
+            "duration_seconds": 36.008870363235474,
+            "stdout": "============================================================\n CVE-2025-55182 (React2Shell) Enhanced PoC\n============================================================\n\n[*] Executing 10 exploit attempts...\n[*] Target: http://localhost:3000\n[*] Command: systeminfo\n[*] Progress: 10/10\n\n============================================================\n PERFORMANCE ANALYSIS RESULTS\n============================================================\n\n[*] Total Requests: 10\n[+] Successful Exploits: 10\n[-] Failed Attempts: 0\n[*] Success Rate: 100.00%\n\n[*] Payload Size: 426 bytes\n\n[*] Response Time Statistics:\n    - Minimum: 3168.17ms\n    - Maximum: 3606.27ms\n    - Mean: 3522.37ms\n    - Median: 3585.13ms\n    - Std Dev: 140.58ms\n\n============================================================\n[+] Metrics exported to: E:\\CVE_2025_55182\\experiment\\exploit_metrics.json\n",
+            "stderr": "",
+            "return_code": 0
+          }
+        }
+      ]
+    }
+  ]
+}

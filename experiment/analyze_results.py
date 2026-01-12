@@ -1,0 +1,405 @@
+#!/usr/bin/env python3
+"""
+Results Analysis and Visualization Tool
+Processes experiment data and generates paper-ready statistics and graphs
+"""
+
+import json
+import os
+import sys
+from pathlib import Path
+from typing import Dict, List
+import statistics
+
+try:
+    import matplotlib.pyplot as plt
+    import matplotlib
+    matplotlib.use('Agg')  # Use non-GUI backend
+    HAS_MATPLOTLIB = True
+except ImportError:
+    HAS_MATPLOTLIB = False
+    print("[!] matplotlib not installed. Install with: pip install matplotlib")
+    print("[*] Will generate text-based analysis only.\n")
+
+
+class ResultsAnalyzer:
+    def __init__(self, results_dir: str = "experiment_results"):
+        # Get the directory where this script is located
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # If results_dir is just a name (not an absolute path), make it relative to script directory
+        if not os.path.isabs(results_dir):
+            self.results_dir = os.path.join(script_dir, results_dir)
+        else:
+            self.results_dir = results_dir
+
+        self.data = {}
+
+    def load_all_data(self):
+        """Load all JSON result files"""
+        print(f"[*] Loading data from {self.results_dir}/")
+
+        if not os.path.exists(self.results_dir):
+            print(f"[-] Directory not found: {self.results_dir}")
+            print("[!] Run experiments first: python run_experiments.py http://localhost:3000")
+            return False
+
+        json_files = list(Path(self.results_dir).glob("*.json"))
+
+        if not json_files:
+            print(f"[-] No JSON files found in {self.results_dir}")
+            return False
+
+        for json_file in json_files:
+            print(f"[+] Loading {json_file.name}")
+            try:
+                with open(json_file, 'r') as f:
+                    data = json.load(f)
+
+                # Categorize data by type
+                if "low_rate" in json_file.name:
+                    self.data['low_rate'] = data
+                elif "medium_rate" in json_file.name:
+                    self.data['medium_rate'] = data
+                elif "high_rate" in json_file.name:
+                    self.data['high_rate'] = data
+                elif "waf_bypass" in json_file.name:
+                    self.data['waf_bypass'] = data
+                elif "all_experiments" in json_file.name:
+                    self.data['all_experiments'] = data
+
+            except Exception as e:
+                print(f"[!] Error loading {json_file}: {e}")
+
+        print(f"\n[+] Loaded {len(self.data)} datasets\n")
+        return True
+
+    def generate_paper_statistics(self):
+        """Generate key statistics for paper"""
+        print("="*60)
+        print(" KEY STATISTICS FOR PAPER")
+        print("="*60)
+
+        stats = {}
+
+        # Performance metrics
+        if 'low_rate' in self.data:
+            analysis = self.data['low_rate'].get('analysis', {})
+            rt = analysis.get('response_times', {})
+
+            stats['baseline_mean_response'] = rt.get('mean_ms', 0)
+            stats['baseline_stdev'] = rt.get('stdev_ms', 0)
+            stats['baseline_success_rate'] = analysis.get('success_rate', 0)
+            stats['payload_size'] = analysis.get('payload_size_bytes', 0)
+
+            print("\n[*] Baseline Performance (Low Rate - 1 req/sec):")
+            print(f"    Mean Response Time: {stats['baseline_mean_response']:.2f} ms")
+            print(f"    Std Deviation: {stats['baseline_stdev']:.2f} ms")
+            print(f"    Success Rate: {stats['baseline_success_rate']:.2f}%")
+            print(f"    Payload Size: {stats['payload_size']} bytes")
+
+        # Compare rates
+        if 'medium_rate' in self.data and 'high_rate' in self.data:
+            medium_rt = self.data['medium_rate'].get('analysis', {}).get('response_times', {}).get('mean_ms', 0)
+            high_rt = self.data['high_rate'].get('analysis', {}).get('response_times', {}).get('mean_ms', 0)
+
+            if 'baseline_mean_response' in stats and stats['baseline_mean_response'] > 0:
+                medium_increase = ((medium_rt - stats['baseline_mean_response']) / stats['baseline_mean_response']) * 100
+                high_increase = ((high_rt - stats['baseline_mean_response']) / stats['baseline_mean_response']) * 100
+
+                stats['medium_rate_increase'] = medium_increase
+                stats['high_rate_increase'] = high_increase
+
+                print(f"\n[*] Performance Degradation:")
+                print(f"    Medium Rate (5 req/sec): {medium_increase:+.1f}% vs baseline")
+                print(f"    High Rate (20 req/sec): {high_increase:+.1f}% vs baseline")
+
+            medium_success = self.data['medium_rate'].get('analysis', {}).get('success_rate', 0)
+            high_success = self.data['high_rate'].get('analysis', {}).get('success_rate', 0)
+
+            print(f"\n[*] Success Rates by Request Rate:")
+            print(f"    Low Rate (1 req/sec): {stats.get('baseline_success_rate', 0):.1f}%")
+            print(f"    Medium Rate (5 req/sec): {medium_success:.1f}%")
+            print(f"    High Rate (20 req/sec): {high_success:.1f}%")
+
+            # DoS assessment
+            if high_success < 80:
+                print(f"\n[!] DoS Potential: Server availability significantly degraded at 20 req/sec")
+                print(f"    (Success rate dropped to {high_success:.1f}%)")
+
+        # WAF bypass analysis
+        if 'waf_bypass' in self.data:
+            waf_results = self.data['waf_bypass'].get('results', [])
+            summary = self.data['waf_bypass'].get('summary', {})
+
+            successful = summary.get('successful_bypasses', 0)
+            blocked = summary.get('blocked', 0)
+            total = len(waf_results)
+
+            stats['waf_bypass_count'] = successful
+            stats['waf_total_techniques'] = total
+            stats['waf_bypass_rate'] = (successful / total * 100) if total > 0 else 0
+
+            print(f"\n[*] WAF Bypass Analysis:")
+            print(f"    Total Techniques Tested: {total}")
+            print(f"    Successful Bypasses: {successful}")
+            print(f"    Blocked: {blocked}")
+            print(f"    Bypass Rate: {stats['waf_bypass_rate']:.1f}%")
+
+            print(f"\n[*] Successful Bypass Techniques:")
+            for result in waf_results:
+                if result.get('execution_success') and not result.get('blocked_by_waf'):
+                    print(f"    ✓ {result['technique']}")
+
+        # Summary for paper
+        print("\n" + "="*60)
+        print(" COPY THESE VALUES TO YOUR PAPER")
+        print("="*60)
+
+        print(f"\nAbstract/Introduction:")
+        if 'payload_size' in stats:
+            print(f"  - Payload size: {stats['payload_size']} bytes ({stats['payload_size']/1024:.1f} KB)")
+        if 'high_rate_increase' in stats:
+            print(f"  - Response time increase: {stats['high_rate_increase']:.1f}% at high rate")
+        if 'waf_bypass_count' in stats and 'waf_total_techniques' in stats:
+            print(f"  - WAF bypass: {stats['waf_bypass_count']} out of {stats['waf_total_techniques']} techniques successful")
+
+        print(f"\nTable 1 (Baseline Metrics):")
+        if 'baseline_mean_response' in stats:
+            print(f"  Mean Response Time: {stats['baseline_mean_response']:.2f} ms")
+        if 'baseline_stdev' in stats:
+            print(f"  Standard Deviation: {stats['baseline_stdev']:.2f} ms")
+        if 'payload_size' in stats:
+            print(f"  Payload Size: {stats['payload_size']} bytes")
+        if 'baseline_success_rate' in stats:
+            print(f"  Success Rate: {stats['baseline_success_rate']:.1f}%")
+
+        print("\n" + "="*60 + "\n")
+
+        return stats
+
+    def generate_graphs(self):
+        """Generate publication-quality graphs"""
+        if not HAS_MATPLOTLIB:
+            print("[!] Skipping graph generation (matplotlib not installed)")
+            return
+
+        print("[*] Generating graphs...")
+
+        # Save graphs in the same directory as the script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        graphs_dir = os.path.join(script_dir, "paper_figures")
+        if not os.path.exists(graphs_dir):
+            os.makedirs(graphs_dir)
+
+        # Graph 1: Response time comparison
+        if all(k in self.data for k in ['low_rate', 'medium_rate', 'high_rate']):
+            self._plot_response_time_comparison(graphs_dir)
+
+        # Graph 2: Response time distribution
+        if 'high_rate' in self.data:
+            self._plot_response_time_distribution(graphs_dir)
+
+        # Graph 3: Success rate by request rate
+        if all(k in self.data for k in ['low_rate', 'medium_rate', 'high_rate']):
+            self._plot_success_rates(graphs_dir)
+
+        # Graph 4: WAF bypass results
+        if 'waf_bypass' in self.data:
+            self._plot_waf_bypass(graphs_dir)
+
+        print(f"[+] Graphs saved to {graphs_dir}/")
+
+    def _plot_response_time_comparison(self, output_dir):
+        """Compare response times across different rates"""
+        rates = ['low_rate', 'medium_rate', 'high_rate']
+        labels = ['Low (1 req/s)', 'Medium (5 req/s)', 'High (20 req/s)']
+        means = []
+        stdevs = []
+
+        for rate in rates:
+            rt = self.data[rate].get('analysis', {}).get('response_times', {})
+            means.append(rt.get('mean_ms', 0))
+            stdevs.append(rt.get('stdev_ms', 0))
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+        x = range(len(labels))
+
+        ax.bar(x, means, yerr=stdevs, capsize=5, alpha=0.7, color=['green', 'orange', 'red'])
+        ax.set_xlabel('Request Rate', fontsize=12)
+        ax.set_ylabel('Mean Response Time (ms)', fontsize=12)
+        ax.set_title('Response Time vs Request Rate', fontsize=14, fontweight='bold')
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels)
+        ax.grid(axis='y', alpha=0.3)
+
+        plt.tight_layout()
+        plt.savefig(f"{output_dir}/response_time_comparison.png", dpi=300)
+        plt.close()
+
+        print(f"[+] Generated: response_time_comparison.png")
+
+    def _plot_response_time_distribution(self, output_dir):
+        """Plot response time distribution histogram"""
+        metrics = self.data['high_rate'].get('metrics', [])
+        response_times = [m['response_time_ms'] for m in metrics if m['response_time_ms'] > 0]
+
+        if not response_times:
+            return
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.hist(response_times, bins=50, alpha=0.7, color='steelblue', edgecolor='black')
+        ax.set_xlabel('Response Time (ms)', fontsize=12)
+        ax.set_ylabel('Frequency', fontsize=12)
+        ax.set_title('Response Time Distribution - High Rate Attack', fontsize=14, fontweight='bold')
+        ax.axvline(statistics.mean(response_times), color='red', linestyle='--',
+                   label=f'Mean: {statistics.mean(response_times):.1f}ms')
+        ax.axvline(statistics.median(response_times), color='green', linestyle='--',
+                   label=f'Median: {statistics.median(response_times):.1f}ms')
+        ax.legend()
+        ax.grid(axis='y', alpha=0.3)
+
+        plt.tight_layout()
+        plt.savefig(f"{output_dir}/response_time_distribution.png", dpi=300)
+        plt.close()
+
+        print(f"[+] Generated: response_time_distribution.png")
+
+    def _plot_success_rates(self, output_dir):
+        """Plot success rates across different request rates"""
+        rates = ['low_rate', 'medium_rate', 'high_rate']
+        labels = ['Low\n(1 req/s)', 'Medium\n(5 req/s)', 'High\n(20 req/s)']
+        success_rates = []
+
+        for rate in rates:
+            sr = self.data[rate].get('analysis', {}).get('success_rate', 0)
+            success_rates.append(sr)
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+        colors = ['green' if sr > 90 else 'orange' if sr > 70 else 'red' for sr in success_rates]
+
+        bars = ax.bar(labels, success_rates, color=colors, alpha=0.7, edgecolor='black')
+        ax.set_ylabel('Success Rate (%)', fontsize=12)
+        ax.set_xlabel('Request Rate', fontsize=12)
+        ax.set_title('Exploit Success Rate vs Request Rate', fontsize=14, fontweight='bold')
+        ax.set_ylim([0, 105])
+        ax.axhline(y=100, color='gray', linestyle='--', alpha=0.5)
+        ax.grid(axis='y', alpha=0.3)
+
+        # Add value labels on bars
+        for bar in bars:
+            height = bar.get_height()
+            ax.text(bar.get_x() + bar.get_width()/2., height + 1,
+                   f'{height:.1f}%', ha='center', va='bottom', fontweight='bold')
+
+        plt.tight_layout()
+        plt.savefig(f"{output_dir}/success_rates.png", dpi=300)
+        plt.close()
+
+        print(f"[+] Generated: success_rates.png")
+
+    def _plot_waf_bypass(self, output_dir):
+        """Plot WAF bypass results"""
+        results = self.data['waf_bypass'].get('results', [])
+
+        if not results:
+            return
+
+        techniques = [r['technique'].replace(' ', '\n') for r in results]
+        successes = [1 if (r['execution_success'] and not r['blocked_by_waf']) else 0 for r in results]
+        colors = ['green' if s == 1 else 'red' for s in successes]
+
+        fig, ax = plt.subplots(figsize=(12, 6))
+        bars = ax.bar(range(len(techniques)), successes, color=colors, alpha=0.7, edgecolor='black')
+        ax.set_ylabel('Bypass Successful', fontsize=12)
+        ax.set_xlabel('Technique', fontsize=12)
+        ax.set_title('WAF Bypass Technique Effectiveness', fontsize=14, fontweight='bold')
+        ax.set_xticks(range(len(techniques)))
+        ax.set_xticklabels(techniques, rotation=45, ha='right', fontsize=9)
+        ax.set_ylim([0, 1.2])
+        ax.set_yticks([0, 1])
+        ax.set_yticklabels(['Failed', 'Success'])
+        ax.grid(axis='y', alpha=0.3)
+
+        plt.tight_layout()
+        plt.savefig(f"{output_dir}/waf_bypass_results.png", dpi=300)
+        plt.close()
+
+        print(f"[+] Generated: waf_bypass_results.png")
+
+    def generate_latex_tables(self):
+        """Generate LaTeX table code ready to paste into paper"""
+        print("\n" + "="*60)
+        print(" LATEX TABLE CODE FOR PAPER")
+        print("="*60)
+
+        # Table 1: Baseline metrics
+        if 'low_rate' in self.data:
+            print("\n% Table 1: Baseline Performance Metrics")
+            print("\\begin{table}[h]")
+            print("\\centering")
+            print("\\caption{Baseline Exploit Performance Metrics}")
+            print("\\label{tab:baseline}")
+            print("\\begin{tabular}{@{}lc@{}}")
+            print("\\toprule")
+            print("Metric & Value \\\\")
+            print("\\midrule")
+
+            analysis = self.data['low_rate'].get('analysis', {})
+            rt = analysis.get('response_times', {})
+
+            print(f"Mean Response Time & {rt.get('mean_ms', 0):.2f} ms \\\\")
+            print(f"Standard Deviation & {rt.get('stdev_ms', 0):.2f} ms \\\\")
+            print(f"Payload Size & {analysis.get('payload_size_bytes', 0)} bytes \\\\")
+            print(f"Success Rate & {analysis.get('success_rate', 0):.1f}\\% \\\\")
+
+            print("\\bottomrule")
+            print("\\end{tabular}")
+            print("\\end{table}")
+
+        # Table 2: DoS threshold
+        if all(k in self.data for k in ['low_rate', 'medium_rate', 'high_rate']):
+            print("\n% Table 2: DoS Threshold Analysis")
+            print("\\begin{table}[h]")
+            print("\\centering")
+            print("\\caption{DoS Threshold Analysis}")
+            print("\\label{tab:dos}")
+            print("\\begin{tabular}{@{}lcc@{}}")
+            print("\\toprule")
+            print("Request Rate & Server Response & Availability \\\\")
+            print("\\midrule")
+
+            low_sr = self.data['low_rate'].get('analysis', {}).get('success_rate', 0)
+            med_sr = self.data['medium_rate'].get('analysis', {}).get('success_rate', 0)
+            high_sr = self.data['high_rate'].get('analysis', {}).get('success_rate', 0)
+
+            low_status = "Normal" if low_sr > 95 else "Degraded"
+            med_status = "Normal" if med_sr > 95 else "Degraded" if med_sr > 80 else "Severe"
+            high_status = "Normal" if high_sr > 95 else "Degraded" if high_sr > 80 else "Severe"
+
+            print(f"1 req/sec & {low_status} & {low_sr:.1f}\\% \\\\")
+            print(f"5 req/sec & {med_status} & {med_sr:.1f}\\% \\\\")
+            print(f"20 req/sec & {high_status} & {high_sr:.1f}\\% \\\\")
+
+            print("\\bottomrule")
+            print("\\end{tabular}")
+            print("\\end{table}")
+
+        print("\n" + "="*60 + "\n")
+
+
+def main():
+    analyzer = ResultsAnalyzer()
+
+    if not analyzer.load_all_data():
+        sys.exit(1)
+
+    # Generate all analysis
+    analyzer.generate_paper_statistics()
+    analyzer.generate_latex_tables()
+    analyzer.generate_graphs()
+
+    print("\n[+] Analysis complete!")
+
+if __name__ == "__main__":
+    main()

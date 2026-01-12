@@ -1,0 +1,825 @@
+{
+  "metadata": {
+    "target_url": "http://localhost:3000",
+    "command": "whoami",
+    "total_requests": 100,
+    "timestamp": "2026-01-12 17:10:44"
+  },
+  "metrics": [
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 81.65955543518066,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212617.4149525
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 73.44365119934082,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212617.7041075
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 65.76418876647949,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212617.9793396
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 60.51349639892578,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212618.2593925
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.1212158203125,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212618.535074
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 72.26228713989258,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212618.8113031
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 73.1348991394043,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212619.0872104
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 73.31275939941406,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212619.3628821
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 77.15153694152832,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212619.642749
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 60.94169616699219,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212619.9209595
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.97809219360352,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212620.1927855
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 61.10405921936035,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212620.4720356
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 66.7567253112793,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212620.7464936
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 65.30404090881348,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212621.0222182
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 69.7183609008789,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212621.2977395
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.04611396789551,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212621.572504
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 72.62492179870605,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212621.8485172
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.88725471496582,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212622.125486
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 73.5011100769043,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212622.402518
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 70.91665267944336,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212622.6774602
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 70.43743133544922,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212622.9553354
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 69.38624382019043,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212623.2274916
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 84.62858200073242,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212623.5006626
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 86.7922306060791,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212623.7885065
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 66.46084785461426,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212624.0857654
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 72.6463794708252,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212624.3573287
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.16489791870117,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212624.6314337
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 78.02367210388184,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212624.906517
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 65.79470634460449,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212625.18986
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.90590286254883,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212625.4634278
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 70.65629959106445,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212625.736046
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 57.78837203979492,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212626.0097601
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.7938461303711,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212626.2833807
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 83.63866806030273,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212626.5582144
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 68.65978240966797,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212626.8431592
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 65.43707847595215,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212627.1166434
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 68.61710548400879,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212627.3907816
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.32983207702637,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212627.6660175
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 69.0920352935791,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212627.9426327
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 74.21469688415527,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212628.2163444
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 66.25556945800781,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212628.4929757
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 84.48958396911621,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212628.7681522
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 62.36982345581055,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212629.0554073
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 74.36466217041016,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212629.328437
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 69.78893280029297,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212629.6049116
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 72.58129119873047,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212629.8837311
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 65.12618064880371,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212630.1621277
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.32172584533691,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212630.4342582
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 61.63311004638672,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212630.7083821
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 69.14424896240234,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212630.9780142
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 64.5289421081543,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212631.2505918
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.91729545593262,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212631.522377
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 75.48975944519043,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212631.7953303
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.24733924865723,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212632.0721848
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 59.940338134765625,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212632.3459082
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 66.32328033447266,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212632.6169434
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 70.84298133850098,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212632.8909032
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 78.7196159362793,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212633.1674151
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 97.14221954345703,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212633.4474165
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 74.31435585021973,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212633.7484632
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.30985641479492,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212634.0247116
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 68.22991371154785,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212634.303631
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 82.21220970153809,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212634.5810308
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 63.684701919555664,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212634.8722847
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 61.02418899536133,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212635.1465445
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 72.42655754089355,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212635.422366
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 77.33964920043945,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212635.6966877
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 84.43880081176758,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212635.9779985
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 75.45709609985352,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212636.2644413
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 88.45114707946777,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212636.5407085
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 113.01112174987793,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212636.8356874
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 64.04447555541992,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212637.1511655
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 66.54071807861328,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212637.4247775
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.46978378295898,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212637.7010362
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 64.96930122375488,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212637.9778824
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 72.3264217376709,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212638.2536578
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.19255447387695,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212638.5272646
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 68.48621368408203,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212638.801449
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 66.54906272888184,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212639.0768266
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 74.66626167297363,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212639.3507853
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.82913208007812,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212639.6272595
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.98214530944824,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212639.9012687
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 66.53165817260742,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212640.175054
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 87.98646926879883,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212640.450645
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 66.63846969604492,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212640.7418015
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.60025024414062,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212641.015285
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.17634201049805,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212641.2881293
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.49052619934082,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212641.5635016
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 86.00783348083496,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212641.8397715
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 67.66891479492188,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212642.127569
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 72.23677635192871,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212642.4042814
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 58.76898765563965,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212642.6784291
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 71.29597663879395,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212642.9492128
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 69.81635093688965,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212643.2249718
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 92.16189384460449,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212643.4992433
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 85.11066436767578,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212643.792764
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 63.519954681396484,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212644.087382
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 61.254024505615234,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212644.357715
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 74.85532760620117,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212644.630515
+    },
+    {
+      "request_size_bytes": 422,
+      "response_time_ms": 74.03326034545898,
+      "status_code": 500,
+      "success": true,
+      "error_message": "",
+      "timestamp": 1768212644.9135115
+    }
+  ],
+  "analysis": {
+    "total_requests": 100,
+    "successful_exploits": 100,
+    "failed_attempts": 0,
+    "success_rate": 100.0,
+    "response_times": {
+      "min_ms": 57.78837203979492,
+      "max_ms": 113.01112174987793,
+      "mean_ms": 71.71947479248047,
+      "median_ms": 70.87981700897217,
+      "stdev_ms": 8.53351279877627
+    },
+    "payload_size_bytes": 422,
+    "error_types": {}
+  }
+}

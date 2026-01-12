@@ -1,4 +1,4 @@
-# poc.py
+# demo/poc.py
 # A very simple Proof of Concept script for exploiting React2Shell vulnerability
 # Requires 'requests' library: pip install requests
 
