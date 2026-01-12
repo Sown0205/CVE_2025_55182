@@ -1,4 +1,4 @@
-#<div align="center"> CVE-2025-55182 (React2Shell): A Comprehensive Security Analysis of Deserialization-Based Remote Code Execution in React Server Functions </div>
+<h1 align="center"> CVE-2025-55182 (React2Shell): A Comprehensive Security Analysis of Deserialization-Based Remote Code Execution in React Server Functions </h1>
 
 **<div align="center">Authors:** Bui Thai Son - s4037172, Nguyen Ngoc Dung - s3978535 and Tran Dinh Hai - s4041605
 
@@ -184,7 +184,7 @@ A minimal proof-of-concept demonstration script that implements the core exploit
 - Simple command-line interface accepting target URL and command
 - Direct payload crafting without abstractions
 - Minimal dependencies (only requires `requests` library)
-- Designed for quick educational demonstration and quick verification
+- Designed for educational, quick demonstration and quick verification
 
 Key characteristics:
 ```python
