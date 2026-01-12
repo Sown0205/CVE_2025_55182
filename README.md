@@ -1337,10 +1337,10 @@ level: critical
 
 ```
 System Information:
-  OS: Windows 10 Professional (Build 19045)
-  CPU: Intel Core i7-9700K @ 3.60GHz (8 cores)
-  RAM: 32GB DDR4 @ 3200MHz
-  Disk: Samsung 970 EVO Plus 1TB NVMe SSD
+  OS: Windows 11 Professional - Sandbox Environment
+  Version: 10.0.26200 Build 26200
+  CPU: 13th Gen Intel Core i7-13620H, 2400Mhz (10 cores), 16 Logical Proccessor
+  RAM: 16GB
 
 Node.js Environment:
   Node.js Version: v20.11.0
@@ -1370,24 +1370,30 @@ To reproduce these experiments in your own test environment:
 
 1. **Set up vulnerable server:**
    ```bash
-   git clone https://github.com/researcher/CVE-2025-55182-testbed
-   cd CVE-2025-55182-testbed/test-server
-   npm install next@16.0.6
+   git clone https://github.com/Sown0205/CVE_2025_55182.git
+   cd CVE-2025-55182/test-server
+   npm install
    npm run dev
    ```
 
-2. **Run experiments:**
+2. **Try quick exploit demonstration**
+    ```python
+    cd ../demo
+    python poc.py http://localhost:3000 whoami
+    ```
+
+3. **Run experiments:**
    ```bash
    cd ../experiment
    python run_experiments.py http://localhost:3000
    ```
 
-3. **Analyze results:**
+4. **Analyze results:**
    ```bash
    python analyze_results.py
    ```
 
-4. **Generate visualizations:**
+5. **Generate visualizations:**
    ```bash
    python generate_figures.py
    ```
