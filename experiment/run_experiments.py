@@ -24,12 +24,20 @@ class ExperimentRunner:
         if not os.path.exists(self.results_dir):
             os.makedirs(self.results_dir)
 
-    def run_command(self, cmd: list, description: str) -> dict:
-        """Run a command and capture output"""
+    def run_command(self, cmd: list, description: str, timeout: int = 300) -> dict:
+        """
+        Run a command and capture output
+
+        Args:
+            cmd: Command to execute as list
+            description: Description of what the command does
+            timeout: Timeout in seconds (default: 300 = 5 minutes)
+        """
         print(f"\n{'='*60}")
         print(f"[*] {description}")
         print(f"{'='*60}")
         print(f"Command: {' '.join(cmd)}\n")
+        print(f"[*] Timeout: {timeout} seconds ({timeout//60} minutes)\n")
 
         start_time = time.time()
 
@@ -38,7 +46,7 @@ class ExperimentRunner:
                 cmd,
                 capture_output=True,
                 text=True,
-                timeout=300  # 5 minute timeout
+                timeout=timeout
             )
 
             end_time = time.time()
@@ -57,13 +65,13 @@ class ExperimentRunner:
             }
 
         except subprocess.TimeoutExpired:
-            print("[!] Command timed out after 5 minutes")
+            print(f"[!] Command timed out after {timeout} seconds ({timeout//60} minutes)")
             return {
                 "success": False,
-                "duration_seconds": 300,
+                "duration_seconds": timeout,
                 "error": "Timeout",
                 "stdout": "",
-                "stderr": "Command exceeded 5 minute timeout"
+                "stderr": f"Command exceeded {timeout} second timeout ({timeout//60} minutes)"
             }
         except Exception as e:
             print(f"[!] Error running command: {e}")
@@ -219,6 +227,97 @@ class ExperimentRunner:
             "result": result
         }
 
+    def experiment_5_performance_aggressive(self):
+        """Experiment 5: Aggressive performance test (100 req/sec with 2000 requests)"""
+        print("\n" + "#"*60)
+        print("# EXPERIMENT 5: Aggressive Performance Analysis (100 req/sec)")
+        print("#"*60)
+
+        print("\n[!] WARNING: This test uses aggressive request rates")
+        print("[!] Server crash/hang is likely - have restart plan ready")
+        print("[!] 100 requests per second for ~20 seconds")
+        print("[!] Proceeding in 5 seconds...\n")
+        time.sleep(5)
+
+        # Get the directory where this script is located
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        poc_script = os.path.join(script_dir, "poc_enhanced.py")
+
+        cmd = [
+            sys.executable,
+            poc_script,
+            self.target_url,
+            "whoami",
+            "--batch", "2000",
+            "--delay", "10"  # 10ms delay = 100 req/sec
+        ]
+
+        result = self.run_command(
+            cmd,
+            "Sending 2000 requests with 10ms delay (100 req/sec) - Aggressive stress test"
+        )
+
+        # Rename metrics file (now in script directory)
+        metrics_file = os.path.join(script_dir, "exploit_metrics.json")
+        if os.path.exists(metrics_file):
+            new_name = f"{self.results_dir}/metrics_aggressive_{self.timestamp}.json"
+            os.rename(metrics_file, new_name)
+            result["metrics_file"] = new_name
+
+        return {
+            "experiment": "performance_aggressive_100rps",
+            "description": "Aggressive stress test at 100 req/sec with 2000 total requests (~20s duration)",
+            "result": result
+        }
+
+    def experiment_6_performance_extreme(self):
+        """Experiment 6: Extreme performance test (100 req/sec with 5000 requests)"""
+        print("\n" + "#"*60)
+        print("# EXPERIMENT 6: Extreme Performance Analysis (100 req/sec Extended)")
+        print("#"*60)
+
+        print("\n[!] CRITICAL WARNING: This is an extreme stress test")
+        print("[!] Server crash is highly likely")
+        print("[!] 100 requests per second for ~50 seconds")
+        print("[!] Ensure you can restart the server")
+        print("[!] Proceeding in 5 seconds...\n")
+        time.sleep(5)
+
+        # Get the directory where this script is located
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        poc_script = os.path.join(script_dir, "poc_enhanced.py")
+
+        cmd = [
+            sys.executable,
+            poc_script,
+            self.target_url,
+            "whoami",
+            "--batch", "5000",
+            "--delay", "10"  # 10ms delay = 100 req/sec
+        ]
+
+        # Use extended timeout for extreme test (20 minutes = 1200 seconds)
+        # This allows the test to complete even if server becomes very slow
+        # Individual requests have 10s timeout, so timeouts are handled gracefully
+        result = self.run_command(
+            cmd,
+            "Sending 5000 requests with 10ms delay (100 req/sec) - Extreme stress test",
+            timeout=1200  # 20 minute timeout instead of default 5 minutes
+        )
+
+        # Rename metrics file (now in script directory)
+        metrics_file = os.path.join(script_dir, "exploit_metrics.json")
+        if os.path.exists(metrics_file):
+            new_name = f"{self.results_dir}/metrics_extreme_{self.timestamp}.json"
+            os.rename(metrics_file, new_name)
+            result["metrics_file"] = new_name
+
+        return {
+            "experiment": "performance_extreme_100rps_extended",
+            "description": "Extreme stress test at 100 req/sec with 5000 total requests (~50s duration)",
+            "result": result
+        }
+
     def run_all_experiments(self):
         """Run complete experiment suite"""
         print("\n" + "="*60)
@@ -244,8 +343,8 @@ class ExperimentRunner:
             self.experiment_2_performance_low_rate,
             self.experiment_3_performance_medium_rate,
             self.experiment_4_performance_high_rate,
-            self.experiment_5_waf_bypass,
-            self.experiment_6_payload_comparison,
+            self.experiment_5_performance_aggressive,
+            self.experiment_6_performance_extreme,
         ]
 
         for experiment_func in experiments:
@@ -310,12 +409,13 @@ def main():
         print("  python run_experiments.py http://localhost:3000")
         print("\nThis will run all experiments for the research paper:")
         print("  1. Basic functionality test")
-        print("  2. Performance analysis (low rate)")
-        print("  3. Performance analysis (medium rate)")
-        print("  4. Performance analysis (high rate / DoS)")
-        print("  5. WAF bypass testing")
-        print("  6. Payload comparison")
-        print("\nWARNING: Only run against test servers in controlled environments!")
+        print("  2. Performance analysis (low rate - 1 req/sec)")
+        print("  3. Performance analysis (medium rate - 5 req/sec)")
+        print("  4. Performance analysis (high rate - 20 req/sec)")
+        print("  5. Aggressive stress test (100 req/sec, 2000 requests)")
+        print("  6. Extreme stress test (100 req/sec, 5000 requests)")
+        print("\nWARNING: Experiments 5-6 may crash the server!")
+        print("WARNING: Only run against test servers in controlled environments!")
         sys.exit(1)
 
     target_url = sys.argv[1]
